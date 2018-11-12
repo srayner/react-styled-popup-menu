@@ -2,4 +2,4 @@
 
 A react popup menu built using styled components.
 
-![alt text]["./docs/screenshot.png"]
+![alt text](./docs/screenshot.png)
