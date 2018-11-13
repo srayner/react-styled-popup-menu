@@ -51,7 +51,13 @@ const List = styled.ul`
   padding: 5px 0;
   list-style: none;
   border-top: 1px solid #789;
-  font-weight: 500;
+  font-weight: 300;
+`;
+
+const DisabledItem = styled.li`
+  margin: 0 -10px;
+  padding: 5px 15px;
+  color: #aaa;
 `;
 
 const Item = styled.li`
@@ -70,8 +76,15 @@ const Menu = props => {
   const lists = props.items.map((list, index) => {
     return (
       <List key={index}>
-        {list.map((item, index) => {
-          return <Item key={index}>{item}</Item>;
+        {list.map(item => {
+          if (item.disabled) {
+            return <DisabledItem key={item.id}>{item.caption}</DisabledItem>;
+          }
+          return (
+            <Item onClick={() => props.onItemClick(item.id)} key={item.id}>
+              {item.caption}
+            </Item>
+          );
         })}
       </List>
     );
@@ -80,7 +93,11 @@ const Menu = props => {
     <Container position={props.position}>
       <Header>
         <Title>{props.title}</Title>
-        <Close />
+        <Close
+          onClick={() => {
+            props.onClose(props.id);
+          }}
+        />
       </Header>
       <Body>{lists}</Body>
     </Container>
